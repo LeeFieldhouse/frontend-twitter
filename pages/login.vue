@@ -10,7 +10,9 @@
               <v-card-text>
                 <v-form>
                   <v-text-field v-model="data.email" prepend-icon="alternate_email" name="email" label="Email" type="text"></v-text-field>
+                  <p class="error-msg">Error message</p>
                   <v-text-field v-model="data.password" id="password" prepend-icon="lock" name="password" label="Password" type="password"></v-text-field>
+                  <p class="error-msg">Error message</p>
                 </v-form>
               </v-card-text>
               <v-card-actions>
