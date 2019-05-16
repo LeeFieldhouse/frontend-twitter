@@ -32,6 +32,10 @@ export default {
 }
 </script>
 <style>
-
+.error-msg {
+  margin-top: -1rem;
+  margin-left: 2.3rem;
+  color: red;
+}
 
 </style>
