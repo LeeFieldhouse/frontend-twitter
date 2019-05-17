@@ -60,12 +60,13 @@ export default {
   strategies: {
     local: {
       endpoints: {
-        login: { url: '/api/auth/login', method: 'post', propertyName: 'meta.token' },
-        logout: { url: '/api/auth/logout', method: 'post' },
-        user: { url: '/api/auth/user', method: 'get', propertyName: 'data' }
+        login: { url: '/auth/login', method: 'post', propertyName: 'meta.token' },
+        logout: { url: '/auth/logout', method: 'post' },
+        user: { url: '/auth/user', method: 'get', propertyName: 'data' }
+
       },
-      // tokenRequired: true,
-      // tokenType: 'bearer',
+      tokenRequired: true,
+      tokenType: 'bearer',
     }
   }
 },
@@ -76,7 +77,8 @@ export default {
 
 
   axios: {
-    baseURL: "http://nuxtbackend.test/"
+    baseURL: "http://nuxtbackend.test/api"
+
   },
 
   /*

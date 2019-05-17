@@ -15,14 +15,31 @@
               <v-avatar size="55"><img src="https://banner2.kisspng.com/20180703/ya/kisspng-computer-icons-user-avatar-user-5b3bafe2381423.1933594815306383062297.jpg"  alt=""></v-avatar>
             </v-btn>
         </v-card>
-        <v-layout row wrap>
+        <v-layout row wrap bottom>
 
         </v-layout>
         <v-card-title primary-title>
-          title
+          <v-layout row >
+            <v-flex xs3>
+              <v-layout column mt-3>
+                <v-layout row wrap justify-left>
+                  Tweets
+                </v-layout>
+                <v-layout row wrap class="blue--text headline" justify-left>
+                  {{user.tweetCount}}
+                </v-layout>
+              </v-layout>
+            </v-flex>
+            <v-flex xs5 class="blue--text font-weight-medium display-1">
+
+            </v-flex>
+          </v-layout>
+
         </v-card-title>
       </v-card>
     </v-flex>
+
+
     <v-flex xs12 md5>
       <addTweet/>
      <v-card v-for="(tweet, index) in tweets" :key="index">
@@ -46,6 +63,9 @@ import addTweet from '@/components/addTweet'
 import axios from 'axios'
 
 export default {
+  middleware: 'auth',
+
+
   data() {
     return {
       tweets: [],
@@ -56,10 +76,8 @@ export default {
     addTweet
   },
   mounted() {
-    axios.get('http://nuxtbackend.test/api/auth/tweet').then(dat => {
-
+    this.$axios.$get('http://nuxtbackend.test/api/auth/tweet').then(dat => {
       this.tweets = dat.data;
-      console.log(this.tweets)
     })
   }
 }

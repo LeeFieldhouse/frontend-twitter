@@ -1,12 +1,16 @@
 <template>
      <v-card>
-       <v-form>
+       <v-form @submit.prevent="submitTweet">
          <v-text-field
           v-model="tweetInput"
            name="tweetInput"
            label="What's happening?"
            id="id" class="ml-3 mr-3"
          ></v-text-field>
+         <v-layout row wrap justify-end>
+           <v-btn type="submit" dark color="blue lighten-1">Submit</v-btn>
+         </v-layout>
+
        </v-form>
      </v-card>
 </template>
@@ -17,6 +21,19 @@ export default {
   data() {
     return {
       tweetInput: null
+    }
+  },
+
+  methods: {
+    async submitTweet(tweet){
+      await this.$axios.$post('http://nuxtbackend.test/api/auth/tweet', {
+        tweet: this.tweetInput,
+        userId: this.user.username,
+
+      }).then(dat => {
+        this.$parent.tweets.unshift(dat.data)
+
+      })
     }
   }
 }
