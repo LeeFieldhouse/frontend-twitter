@@ -32,6 +32,15 @@ export default {
 }
 </script>
 <style>
+
+html {
+
+}
+
+body {
+  font-size: 1rem;
+}
+
 .error-msg {
   margin-top: -1rem;
   margin-left: 2.3rem;

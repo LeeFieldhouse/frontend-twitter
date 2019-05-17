@@ -40,7 +40,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/vuetify'
+    '@/plugins/vuetify',
+    '@/plugins/mixins/user.js'
   ],
 
   /*
@@ -49,12 +50,33 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
   ],
   /*
   ** Axios module configuration
   */
+
+ auth: {
+  strategies: {
+    local: {
+      endpoints: {
+        login: { url: '/api/auth/login', method: 'post', propertyName: 'meta.token' },
+        logout: { url: '/api/auth/logout', method: 'post' },
+        user: { url: '/api/auth/user', method: 'get', propertyName: 'data' }
+      },
+      // tokenRequired: true,
+      // tokenType: 'bearer',
+    }
+  }
+},
+
+  router: {
+    // middleware: ['auth']
+  },
+
+
   axios: {
-    // See https://github.com/nuxt-community/axios-module#options
+    baseURL: "http://nuxtbackend.test/"
   },
 
   /*

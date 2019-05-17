@@ -2,12 +2,13 @@
   <div>
         <v-navigation-drawer
       v-model="drawer"
-      :mini-variant="miniVariant"
+
       fixed
       app
       color="blue"
     >
-      <v-list>
+    <!-- start guest sidebar -->
+      <v-list v-if="!loggedIn">
         <v-list-tile
           v-for="(item, i) in items"
           :key="i"
@@ -20,6 +21,30 @@
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title v-text="item.title" />
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+      <!-- end guest in sidebar -->
+
+      <!-- start -->
+      <v-list v-if="loggedIn">
+        <v-list-tile
+          to="/"
+          router
+          exact
+          class="sidebar-avatar"
+        >
+          <v-list-tile-action>
+            <v-avatar
+              size="48"
+
+            >
+              <img src="https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1" alt="alt">
+            </v-avatar>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="headling">@{{user.username}}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -40,11 +65,13 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
       drawer: false,
       miniVariant: true,
+      // shows not logged in sidebar
       items: [
         {
           icon: 'perm_identity',
@@ -78,5 +105,9 @@ nav {
 .v-toolbar__content .v-btn--icon {
   color: white!important;
 }
+
+
+
+
 
 </style>

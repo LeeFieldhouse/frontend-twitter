@@ -1,71 +1,74 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <div class="text-xs-center">
-        <logo />
-        <vuetify-logo />
-      </div>
+  <v-layout row wrap  dark justify-space-between>
+    <v-flex xs12  md6 lg3>
       <v-card>
-        <v-card-title class="headline">Welcome to the Vuetify + Nuxt.js template</v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>For more information on Vuetify, check out the <a
-            href="https://vuetifyjs.com"
-            target="_blank"
-          >documentation</a>.</p>
-          <p>If you have questions, please join the official <a
-            href="https://chat.vuetifyjs.com/"
-            target="_blank"
-            title="chat"
-          >discord</a>.</p>
-          <p>Find a bug? Report it on the github <a
-            href="https://github.com/vuetifyjs/vuetify/issues"
-            target="_blank"
-            title="contribute"
-          >issue board</a>.</p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-          >Nuxt Documentation</a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-          >Nuxt GitHub</a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            flat
-            nuxt
-            to="/inspire"
-          >Continue</v-btn>
-        </v-card-actions>
+        <v-card class="blue-img">
+            <v-btn
+              absolute
+              dark
+              fab
+              bottom
+              left
+              color="pink"
+              icon
+            >
+              <v-avatar size="55"><img src="https://banner2.kisspng.com/20180703/ya/kisspng-computer-icons-user-avatar-user-5b3bafe2381423.1933594815306383062297.jpg"  alt=""></v-avatar>
+            </v-btn>
+        </v-card>
+        <v-layout row wrap>
+
+        </v-layout>
+        <v-card-title primary-title>
+          title
+        </v-card-title>
       </v-card>
+    </v-flex>
+    <v-flex xs12 md5>
+      <addTweet/>
+     <v-card v-for="(tweet, index) in tweets" :key="index">
+       <v-card-title primary-title>
+         <nuxt-link :to="`/user/${tweet.user}`">{{tweet.user}}</nuxt-link> -{{tweet.posted}}
+       </v-card-title>
+        <v-card-text>
+          {{tweet.tweet}}
+        </v-card-text>
+     </v-card>
+    </v-flex>
+    <v-flex xs12 md3>
+      hello
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 
+import addTweet from '@/components/addTweet'
+import axios from 'axios'
 
 export default {
-  components: {
+  data() {
+    return {
+      tweets: [],
+    }
+  },
 
+  components: {
+    addTweet
+  },
+  mounted() {
+    axios.get('http://nuxtbackend.test/api/auth/tweet').then(dat => {
+
+      this.tweets = dat.data;
+      console.log(this.tweets)
+    })
   }
 }
 </script>
+<style>
+.blue-img {
+  width: 100%;
+  height: 8rem;
+  background:#1DA1F2!important;
+}
+
+</style>
