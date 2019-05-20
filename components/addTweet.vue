@@ -6,6 +6,7 @@
            name="tweetInput"
            label="What's happening?"
            id="id" class="ml-3 mr-3"
+           autocomplete="off"
          ></v-text-field>
          <v-layout row wrap justify-end>
            <v-btn type="submit" dark color="blue lighten-1">Submit</v-btn>
@@ -31,9 +32,13 @@ export default {
         userId: this.user.username,
 
       }).then(dat => {
-        this.$parent.tweets.unshift(dat.data)
-        this.$parent.tweetCount++
+
+            this.$axios.$get('http://nuxtbackend.test/api/auth/tweet').then(dat => {
+      this.$parent.tweets = dat.data;
+              this.$parent.tweetCount++
         this.tweetInput = null
+            });
+
 
       })
     }

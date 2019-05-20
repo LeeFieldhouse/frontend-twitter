@@ -9,10 +9,9 @@
               fab
               bottom
               left
-              color="pink"
               icon
             >
-              <v-avatar size="55"><img src="https://banner2.kisspng.com/20180703/ya/kisspng-computer-icons-user-avatar-user-5b3bafe2381423.1933594815306383062297.jpg"  alt=""></v-avatar>
+              <v-avatar size="55"><img :src="`${user.avatar}`"  alt=""></v-avatar>
             </v-btn>
         </v-card>
         <v-layout row wrap bottom>
@@ -38,14 +37,34 @@
 
 
     <v-flex xs12 md5>
-      <addTweet/>
-     <v-card v-for="(tweet, index) in tweets" :key="index">
+      <addTweet class="mb-1"/>
+     <v-card v-for="(tweet, index) in tweets" :key="index" class="mb-1">
+       <v-layout row>
+         <v-flex xs2>
+           <div class="text-xs-center pt-4">
+              <v-avatar size="48"><img :src="`${tweet.user.avatar}`"  alt=""></v-avatar>
+           </div>
+
+         </v-flex>
+         <v-flex xs9>
        <v-card-title primary-title>
-         <nuxt-link :to="`/user/${tweet.user}`">{{tweet.user}}</nuxt-link> -{{tweet.posted}}
+         <nuxt-link :to="`/user/${tweet.user.username}`">{{tweet.user.username}}</nuxt-link> -{{tweet.posted}}
        </v-card-title>
         <v-card-text>
           {{tweet.tweet}}
+          <v-layout row class="mt-2">
+            <v-icon class="blue--text mr-1">thumb_up_alt</v-icon>
+            <div class="font-weight-medium">14k</div>
+          </v-layout>
         </v-card-text>
+         </v-flex>
+         <v-flex xs1 v-if="user.username === tweet.user.username">
+           <div class="text-xs-center">
+             <v-icon class="icon" size="1rem" @click="deleteTweet(tweet.id)">delete</v-icon>
+           </div>
+         </v-flex>
+       </v-layout>
+
      </v-card>
     </v-flex>
     <v-flex xs12 md3>
@@ -73,11 +92,24 @@ export default {
   components: {
     addTweet
   },
+  methods: {
+    deleteTweet(id) {
+      this.$axios.$delete(`auth/tweet/${id}`, {
+        id: id
+      }).then(dat => {
+        this.tweetCount--
+        this.tweets = this.tweets.filter(tweet => {
+          return tweet.id !== id
+        })
+      })
+    }
+  },
+
   mounted() {
-    this.$axios.$get('http://nuxtbackend.test/api/auth/tweet').then(dat => {
+    this.$axios.$get('auth/tweet').then(dat => {
       this.tweets = dat.data;
     })
-    this.$axios.$get('http://nuxtbackend.test/api/auth/userdetails').then(dat => {
+    this.$axios.$get('auth/userdetails').then(dat => {
       this.tweetCount = dat;
     })
   }
@@ -88,6 +120,10 @@ export default {
   width: 100%;
   height: 8rem;
   background:#1DA1F2!important;
+}
+
+.icon {
+  cursor: pointer;
 }
 
 </style>
