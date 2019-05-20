@@ -11,9 +11,8 @@
               <v-card-text>
 
                   <v-text-field v-model="form.email" prepend-icon="alternate_email" name="email" label="Email" type="text"></v-text-field>
-                  <p class="error-msg">Error message</p>
                   <v-text-field v-model="form.password" id="password" prepend-icon="lock" name="password" label="Password" type="password"></v-text-field>
-                  <p class="error-msg">Error message</p>
+                  <p class="error-msg">{{errors[0]}}</p>
 
               </v-card-text>
               <v-card-actions>
@@ -35,7 +34,8 @@ export default {
       form: {
         email: null,
         password: null
-      }
+      },
+      errors: []
     }
   },
   methods: {
@@ -43,10 +43,12 @@ export default {
       await this.$auth.loginWith("local", {
         data: this.form
       }).then(dat => {
-        console.log(dat)
+        this.$router.push('/')
+      }).catch(err => {
+        this.errors.unshift(err.response.data.error)
       })
 
-      this.$router.push('/')
+
     }
   }
 }

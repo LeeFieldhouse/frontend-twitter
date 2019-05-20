@@ -26,12 +26,9 @@
                   Tweets
                 </v-layout>
                 <v-layout row wrap class="blue--text headline" justify-left>
-                  {{user.tweetCount}}
+                  {{tweetCount}}
                 </v-layout>
               </v-layout>
-            </v-flex>
-            <v-flex xs5 class="blue--text font-weight-medium display-1">
-
             </v-flex>
           </v-layout>
 
@@ -69,6 +66,7 @@ export default {
   data() {
     return {
       tweets: [],
+      tweetCount: null
     }
   },
 
@@ -78,6 +76,9 @@ export default {
   mounted() {
     this.$axios.$get('http://nuxtbackend.test/api/auth/tweet').then(dat => {
       this.tweets = dat.data;
+    })
+    this.$axios.$get('http://nuxtbackend.test/api/auth/userdetails').then(dat => {
+      this.tweetCount = dat;
     })
   }
 }

@@ -9,11 +9,9 @@
                 <v-toolbar-title>Register form</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
-                  <v-text-field v-model.trim="form.name" prepend-icon="person" name="username" label="Username" type="text"></v-text-field>
-                  <p class="error-msg">Error message</p>
-                  <v-text-field v-model.trim="form.email" prepend-icon="alternate_email" name="email" label="Email" type="text"></v-text-field>
-                  <p class="error-msg">Error message</p>
-                  <v-text-field v-model="form.password" id="password" prepend-icon="lock" name="password" label="Password" type="password"></v-text-field>
+                  <v-text-field v-model.trim="username" prepend-icon="person" name="username" label="Username" type="text"></v-text-field>
+                  <v-text-field v-model.trim="email" prepend-icon="alternate_email" name="email" label="Email" type="text"></v-text-field>
+                  <v-text-field v-model="password" id="password" prepend-icon="lock" name="password" label="Password" type="password"></v-text-field>
                   <p class="error-msg">Error message</p>
               </v-card-text>
               <v-card-actions>
@@ -33,21 +31,26 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      form: {
-        name: null,
+        username: null,
         email: null,
         password: null,
-      }
     }
   },
 
   methods: {
-    register(){
-      axios.post('http://nuxtbackend.test/api/auth/register', {
-        data: this.data,
-      }).then(dat => {
-        console.log(dat.data)
+    async register(){
+      await this.$axios.$post('auth/register', {
+        username: this.username,
+        email: this.email,
+        password: this.password
       })
+
+      // await this.$auth.loginWith("local", {
+      //   email: this.email,
+      //   password: this.password
+      // })
+
+      this.$router.push('/')
     }
   }
 }

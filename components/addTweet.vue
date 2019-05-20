@@ -32,6 +32,8 @@ export default {
 
       }).then(dat => {
         this.$parent.tweets.unshift(dat.data)
+        this.$parent.tweetCount++
+        this.tweetInput = null
 
       })
     }
