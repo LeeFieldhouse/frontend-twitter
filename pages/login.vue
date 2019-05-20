@@ -9,7 +9,7 @@
                 <v-toolbar-title>Login form</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
-
+                <p v-if="this.$route.params.registered">Successfully Registered, Sign In Below</p>
                   <v-text-field v-model="form.email" prepend-icon="alternate_email" name="email" label="Email" type="text"></v-text-field>
                   <v-text-field v-model="form.password" id="password" prepend-icon="lock" name="password" label="Password" type="password"></v-text-field>
                   <p class="error-msg">{{errors[0]}}</p>

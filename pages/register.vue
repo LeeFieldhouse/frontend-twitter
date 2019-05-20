@@ -10,9 +10,12 @@
               </v-toolbar>
               <v-card-text>
                   <v-text-field v-model.trim="username" prepend-icon="person" name="username" label="Username" type="text"></v-text-field>
+                  <p class="error-msg" v-if="errors && errors.username">{{errors.username[0]}}</p>
                   <v-text-field v-model.trim="email" prepend-icon="alternate_email" name="email" label="Email" type="text"></v-text-field>
+                  <p class="error-msg" v-if="errors && errors.email">{{errors.email[0]}}</p>
                   <v-text-field v-model="password" id="password" prepend-icon="lock" name="password" label="Password" type="password"></v-text-field>
-                  <p class="error-msg">Error message</p>
+                  <p class="error-msg" v-if="errors && errors.password">{{errors.password[0]}}</p>
+
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -34,6 +37,8 @@ export default {
         username: null,
         email: null,
         password: null,
+        errors: {
+        }
     }
   },
 
@@ -43,14 +48,14 @@ export default {
         username: this.username,
         email: this.email,
         password: this.password
+      }).then(dat => {
+        this.$router.push({name: 'login', params: {registered: 'Successfully Registered'}})
+      }).catch(e => {
+        this.errors = e.response.data.errors
+        console.log(this.errors)
       })
 
-      // await this.$auth.loginWith("local", {
-      //   email: this.email,
-      //   password: this.password
-      // })
 
-      this.$router.push('/')
     }
   }
 }
