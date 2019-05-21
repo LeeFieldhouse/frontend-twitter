@@ -62,6 +62,7 @@
       fixed
       app
       color="white--text"
+      z-index="1"
     >
       <v-toolbar-side-icon @click="drawer = !drawer" />
 

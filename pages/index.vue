@@ -52,7 +52,8 @@
           <nuxt-link :to="`/users/${tweet.user.username}`">{{tweet.user.username}}</nuxt-link> -{{tweet.posted}}
         </v-card-title>
           <v-card-text>
-            {{tweet.tweet}}
+            <p v-html="`${tweet.tweet}`"></p>
+
             <v-layout row class="mt-2">
               <v-icon  @click="likeTweet(tweet.id)" class=" mr-1" :class="tweet.liked ? 'blue--text' : 'grey--text'">thumb_up_alt</v-icon>
               <div class="font-weight-medium">{{tweet.likes}}</div>

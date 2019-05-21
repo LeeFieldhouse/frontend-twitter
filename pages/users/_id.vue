@@ -11,7 +11,7 @@
               bottom
               left
               icon
-              class="ml-5 mb-5 pb-5"
+              class="ml-5 mb-5 pb-5 profile-av"
             >
               <v-avatar class="" size="15rem"><img :src="`${userProfile.user.avatar}`"  alt=""></v-avatar>
             </v-btn>
@@ -62,7 +62,16 @@
         </v-card>
       </v-flex>
       <v-flex xs12 sm4 md3>
-        yooo
+        <v-card >
+          <v-card-title class="blue lighten-2 white--text headline font-weight-bold">
+            Most Popular Tweets
+          </v-card-title>
+          <v-card-text >
+            <v-card v-for="(pop_tweet, index) in userProfile.pop_tweets" :key="index">
+              {{pop_tweet}}
+            </v-card>
+          </v-card-text>
+        </v-card>
       </v-flex>
       <v-flex xs12 sm4 md3>
         Yooo
@@ -89,7 +98,7 @@ beforeCreate(){
         if(dat === "Doesn't Exist"){
          this.$router.go(-1)
         }else{
-          console.log(dat)
+          console.log(dat.pop_tweets)
           this.userProfile = dat
         }
       })
@@ -105,5 +114,9 @@ beforeCreate(){
   flex-direction: row;
   align-items: center;
   padding-left: 20rem;
+}
+
+.profile-av {
+  z-index: 1!important;
 }
 </style>
