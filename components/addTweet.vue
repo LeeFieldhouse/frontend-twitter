@@ -42,8 +42,6 @@ export default {
               this.$parent.tweetCount++
         this.tweetInput = null
             });
-
-
       })
     }
   }

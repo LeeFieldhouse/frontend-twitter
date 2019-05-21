@@ -2,9 +2,9 @@
   <v-app>
     <navbar/>
     <v-content>
-      <v-container>
+
         <nuxt />
-      </v-container>
+
     </v-content>
 
     <v-footer
@@ -34,11 +34,11 @@ export default {
 <style>
 
 html {
-
+font-size: 62.5%;
 }
 
 body {
-  font-size: 1rem;
+  font-size: 2rem;
 }
 
 .error-msg {
