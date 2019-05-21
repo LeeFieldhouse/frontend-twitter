@@ -33,6 +33,24 @@
 
         </v-card-title>
       </v-card>
+      <v-card>
+
+        <v-card-title primary-title>
+          <v-layout row >
+            <v-flex xs3>
+              <v-layout column mt-3>
+                <v-layout row wrap justify-left>
+                  Trending #
+                </v-layout>
+                <v-layout row wrap class="blue--text headline" justify-left>
+                  {{tweetCount}}
+                </v-layout>
+              </v-layout>
+            </v-flex>
+          </v-layout>
+
+        </v-card-title>
+      </v-card>
     </v-flex>
 
 
@@ -53,8 +71,8 @@
         <v-card-text>
           {{tweet.tweet}}
           <v-layout row class="mt-2">
-            <v-icon class="blue--text mr-1">thumb_up_alt</v-icon>
-            <div class="font-weight-medium">14k</div>
+            <v-icon  @click="likeTweet(tweet.id)" class=" mr-1" :class="tweet.liked ? 'blue--text' : 'grey--text'">thumb_up_alt</v-icon>
+            <div class="font-weight-medium">{{tweet.likes}}</div>
           </v-layout>
         </v-card-text>
          </v-flex>
@@ -102,6 +120,14 @@ export default {
           return tweet.id !== id
         })
       })
+    },
+
+    likeTweet(id) {
+      this.$axios.$post(`auth/tweet/like/${id}`).then(dat => {
+        this.$axios.$get('auth/tweet').then(dat => {
+          this.tweets = dat.data
+        })
+      })
     }
   },
 
@@ -112,6 +138,8 @@ export default {
     this.$axios.$get('auth/userdetails').then(dat => {
       this.tweetCount = dat;
     })
+
+
   }
 }
 </script>

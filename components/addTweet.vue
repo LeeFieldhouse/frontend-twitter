@@ -21,18 +21,22 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      tweetInput: null
+      tweetInput: null,
+      tags: []
     }
   },
 
   methods: {
     async submitTweet(tweet){
+      this.tags.push(this.tweetInput.match(/#\S+/g))
       await this.$axios.$post('http://nuxtbackend.test/api/auth/tweet', {
         tweet: this.tweetInput,
         userId: this.user.username,
+        tags: this.tags
 
       }).then(dat => {
-
+        this.tags = []
+        console.log(dat)
             this.$axios.$get('http://nuxtbackend.test/api/auth/tweet').then(dat => {
       this.$parent.tweets = dat.data;
               this.$parent.tweetCount++
