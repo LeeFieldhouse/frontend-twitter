@@ -28,20 +28,24 @@ export default {
 
   methods: {
     async submitTweet(tweet){
+
       this.tags.push(this.tweetInput.match(/#\S+/g))
       await this.$axios.$post('http://nuxtbackend.test/api/auth/tweet', {
-        tweet: this.tweetInput,
+        tweet: this.tweetInput.replace(/#\S+/g, `<a href="/${/#\S+/g.exec(this.tweetInput)}">` + /#\S+/g.exec(this.tweetInput) + '</a>'),
         userId: this.user.username,
         tags: this.tags
 
       }).then(dat => {
         this.tags = []
         console.log(dat)
-            this.$axios.$get('http://nuxtbackend.test/api/auth/tweet').then(dat => {
-      this.$parent.tweets = dat.data;
-              this.$parent.tweetCount++
-        this.tweetInput = null
-            });
+        this.$axios.$get('http://nuxtbackend.test/api/auth/tweet').then(dat => {
+          this.$parent.tweets = dat.data;
+          this.$parent.tweetCount++
+          this.tweetInput = null
+              this.$axios.$get('auth/mostpopular').then(dat => {
+            this.$parent.mostPopular = dat
+          })
+        });
       })
     }
   }
