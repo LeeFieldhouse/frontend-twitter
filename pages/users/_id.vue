@@ -47,6 +47,8 @@
       </v-card>
     </v-flex>
     <!-- end header section -->
+
+
     <v-container>
       <v-layout row wrap justify-space-between>
       <v-flex xs12 sm4 md3>
@@ -56,7 +58,7 @@
           </v-card-title>
           <v-card-text >
             <div v-for="(fav_tag, index) in userProfile.fav_tags" :key="index">
-              {{fav_tag.tag}}
+              <nuxt-link :to="`../tags/${fav_tag.tag.slice(1)}`">{{fav_tag.tag}}</nuxt-link>
             </div>
           </v-card-text>
         </v-card>

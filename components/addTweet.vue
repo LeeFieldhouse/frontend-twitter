@@ -29,20 +29,24 @@ export default {
 
   methods: {
     async submitTweet(tweet){
+      // copies the tweetinput
       this.altInput = this.tweetInput
-      this.tags.push(this.tweetInput.match(/#\S+/g))
+      // pushes all tags to tags array
+      await this.tags.push(this.tweetInput.match(/#\S+/g))
+      // runs through all the tags and converts them to links
       await this.tweetInput.match(/#\S+/g).forEach(t => {
-        this. altInput = this.altInput.replace(t, `<a href="${t}">${t}</a>`)
-        console.log(this.altInput)
+        this.altInput = this.altInput.replace(t, `<a href="tags/${t.slice(1)}">${t}</a>`)
       })
+      // susbmit tweet
       await this.$axios.$post('http://nuxtbackend.test/api/auth/tweet', {
         tweet: this.altInput,
         userId: this.user.username,
         tags: this.tags
 
       }).then(dat => {
+        // set tags back 0
         this.tags = []
-        console.log(dat)
+        // get updates for the page
         this.$axios.$get('http://nuxtbackend.test/api/auth/tweet').then(dat => {
           this.$parent.tweets = dat.data;
           this.$parent.tweetCount++
