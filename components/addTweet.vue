@@ -35,7 +35,7 @@ export default {
       await this.tags.push(this.tweetInput.match(/#\S+/g))
       // runs through all the tags and converts them to links
       await this.tweetInput.match(/#\S+/g).forEach(t => {
-        this.altInput = this.altInput.replace(t, `<a href="tags/${t.slice(1)}">${t}</a>`)
+        this.altInput = this.altInput.replace(t, `<nuxt-link to="tags/${t.slice(1)}">${t}</nuxt-link>`)
       })
       // susbmit tweet
       await this.$axios.$post('http://nuxtbackend.test/api/auth/tweet', {

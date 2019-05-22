@@ -80,7 +80,7 @@
                     Trending
                   </v-layout>
                   <v-layout row wrap class="blue--text headline" justify-left v-for="(item, index) in mostPopular" :key="index" >
-                    {{item.tag}}
+                    <nuxt-link :to="`tags/${item.tag.slice(1)}`">{{item.tag}}</nuxt-link>
                   </v-layout>
                 </v-layout>
               </v-flex>

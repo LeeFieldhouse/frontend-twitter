@@ -62,7 +62,7 @@
       fixed
       app
       color="white--text"
-      z-index="1"
+      class="navbar"
     >
       <v-toolbar-side-icon @click="drawer = !drawer" />
 
@@ -113,6 +113,7 @@ export default {
 <style>
 nav {
   background: #659FCB!important;
+  z-index: 10!important;
 }
 
 .nav-logo {
