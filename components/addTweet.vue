@@ -22,16 +22,21 @@ export default {
   data() {
     return {
       tweetInput: null,
-      tags: []
+      tags: [],
+      altInput: null
     }
   },
 
   methods: {
     async submitTweet(tweet){
-
+      this.altInput = this.tweetInput
       this.tags.push(this.tweetInput.match(/#\S+/g))
+      await this.tweetInput.match(/#\S+/g).forEach(t => {
+        this. altInput = this.altInput.replace(t, `<a href="${t}">${t}</a>`)
+        console.log(this.altInput)
+      })
       await this.$axios.$post('http://nuxtbackend.test/api/auth/tweet', {
-        tweet: this.tweetInput.replace(/#\S+/g, `<a href="/${/#\S+/g.exec(this.tweetInput)}">` + /#\S+/g.exec(this.tweetInput) + '</a>'),
+        tweet: this.altInput,
         userId: this.user.username,
         tags: this.tags
 
