@@ -142,6 +142,7 @@ export default {
     })
     this.$axios.$get('auth/userdetails').then(dat => {
       this.tweetCount = dat;
+
     })
 
     this.$axios.$get('auth/mostpopular').then(dat => {
