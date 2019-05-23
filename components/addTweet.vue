@@ -36,7 +36,7 @@ export default {
       // runs through all the tags and converts them to links
       if(this.tweetInput.match(/#\S+/g)){
         await this.tweetInput.match(/#\S+/g).forEach(t => {
-          this.altInput = this.altInput.replace(t, `<a href="tags/${t.slice(1)}" nuxt>${t}</a>`)
+          this.altInput = this.altInput.replace(t, `<nuxt-link to="tags/${t.slice(1)}" nuxt>${t}</nuxt-link>`)
         })
       }
       // susbmit tweet

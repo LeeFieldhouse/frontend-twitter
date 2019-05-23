@@ -72,12 +72,13 @@ export default {
 },
 
   router: {
-    // middleware: ['auth']
+    middleware: ['auth']
   },
 
 
   axios: {
-    baseURL: "https://getattention.co.uk/api"
+    baseURL: "http://nuxtbackend.test/api"
+    // baseURL: "https://getattention.co.uk/api"
 
   },
 

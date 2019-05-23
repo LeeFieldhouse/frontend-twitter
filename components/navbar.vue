@@ -29,28 +29,36 @@
 
       <!-- start -->
       <v-list v-if="loggedIn">
+
         <v-list-tile
-          to="/"
+          :to="`/users/${user.username}`"
           router
           exact
           class="sidebar-avatar"
         >
-          <v-list-tile-action>
+          <v-list-tile-action >
             <v-avatar
-              size="48"
+              size="60"
 
             >
               <img :src="`${user.avatar}`" alt="alt">
             </v-avatar>
           </v-list-tile-action>
+
+        </v-list-tile>
+
+        <v-list-tile @click.prevent="logOut">
+          <v-list-tile-action >
+            <v-icon size="48">home</v-icon>
+          </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title class="headling">@{{user.username}}</v-list-tile-title>
+            Home
           </v-list-tile-content>
         </v-list-tile>
 
         <v-list-tile @click.prevent="logOut">
           <v-list-tile-action >
-            <v-icon size="48">person</v-icon>
+            <v-icon size="38">person</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             Logout
@@ -122,13 +130,22 @@ nav {
 }
 
 .side-bar{
-  z-index: 10;
+  z-index: 10!important;
 }
 
 .v-toolbar__content .v-btn--icon {
   color: white!important;
 }
 
+.sidebar-avatar{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%!important;
+}
+.sidebar-avatar:hover{
+  background: none!important;
+}
 
 
 

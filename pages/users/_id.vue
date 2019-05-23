@@ -51,7 +51,7 @@
 
     <v-container>
       <v-layout row wrap justify-space-between>
-      <v-flex xs12 sm4 md3>
+      <v-flex xs12 sm4 md3 mb-2 >
         <v-card >
           <v-card-title class="blue lighten-2 white--text headline font-weight-bold">
             Favourite Hashtags
@@ -63,21 +63,21 @@
           </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex xs12 sm4 md3>
+      <v-flex xs12 sm7 md8 >
         <v-card >
           <v-card-title class="blue lighten-2 white--text headline font-weight-bold">
             Most Popular Tweets
           </v-card-title>
-          <v-card-text >
-            <v-card v-for="(pop_tweet, index) in userProfile.pop_tweets" :key="index">
-              {{pop_tweet}}
-            </v-card>
-          </v-card-text>
+        </v-card>
+        <v-card v-for="(pop_tweet, index) in userProfile.pop_tweets" :key="index">
+          <v-container >
+            <p v-html="`${pop_tweet.tweet}`">{{pop_tweet.tweet}}</p>
+            <p>Likes: {{pop_tweet.likes}}</p>
+          </v-container>
+          
         </v-card>
       </v-flex>
-      <v-flex xs12 sm4 md3>
-        Yooo
-      </v-flex>
+
       </v-layout>
 
     </v-container>
@@ -95,13 +95,14 @@ export default {
 
     }
   },
-beforeCreate(){
+  beforeCreate(){
      this.$axios.$get(`auth/users/${this.$route.params.id}`).then(dat => {
         if(dat === "Doesn't Exist"){
          this.$router.go(-1)
         }else{
           console.log(dat.pop_tweets)
           this.userProfile = dat
+          this.userProfile.pop_tweets = this.userProfile.pop_tweets.sort((a, b) => (a.likes > b.likes) ? -1 : 1)
         }
       })
   }
