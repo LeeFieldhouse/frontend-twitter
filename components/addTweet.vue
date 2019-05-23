@@ -34,11 +34,13 @@ export default {
       // pushes all tags to tags array
       await this.tags.push(this.tweetInput.match(/#\S+/g))
       // runs through all the tags and converts them to links
-      await this.tweetInput.match(/#\S+/g).forEach(t => {
-        this.altInput = this.altInput.replace(t, `<nuxt-link to="tags/${t.slice(1)}">${t}</nuxt-link>`)
-      })
+      if(this.tweetInput.match(/#\S+/g)){
+        await this.tweetInput.match(/#\S+/g).forEach(t => {
+          this.altInput = this.altInput.replace(t, `<a href="tags/${t.slice(1)}" nuxt>${t}</a>`)
+        })
+      }
       // susbmit tweet
-      await this.$axios.$post('http://nuxtbackend.test/api/auth/tweet', {
+      await this.$axios.$post('auth/tweet', {
         tweet: this.altInput,
         userId: this.user.username,
         tags: this.tags
@@ -47,7 +49,7 @@ export default {
         // set tags back 0
         this.tags = []
         // get updates for the page
-        this.$axios.$get('http://nuxtbackend.test/api/auth/tweet').then(dat => {
+        this.$axios.$get('auth/tweet').then(dat => {
           this.$parent.tweets = dat.data;
           this.$parent.tweetCount++
           this.tweetInput = null

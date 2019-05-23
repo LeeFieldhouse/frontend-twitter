@@ -77,7 +77,7 @@ export default {
 
 
   axios: {
-    baseURL: "http://nuxtbackend.test/api"
+    baseURL: "https://getattention.co.uk/api"
 
   },
 

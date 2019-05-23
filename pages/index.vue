@@ -152,6 +152,10 @@ export default {
 }
 </script>
 <style>
+a{
+  text-decoration: none;
+}
+
 .blue-img {
   width: 100%;
   height: 8rem;

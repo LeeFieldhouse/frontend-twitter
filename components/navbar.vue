@@ -2,7 +2,7 @@
   <div>
         <v-navigation-drawer
       v-model="drawer"
-
+  class="side-bar"
       fixed
       app
       color="blue"
@@ -113,12 +113,16 @@ export default {
 <style>
 nav {
   background: #659FCB!important;
-  z-index: 10!important;
+  z-index: 9!important;
 }
 
 .nav-logo {
   max-height: 100%;
   max-width: 100%;
+}
+
+.side-bar{
+  z-index: 10;
 }
 
 .v-toolbar__content .v-btn--icon {
